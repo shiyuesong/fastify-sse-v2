@@ -27,7 +27,7 @@ export const plugin: FastifyPluginAsync<SsePluginOptions> = async function (
         this.raw.setHeader("Cache-Control", "no-cache,no-transform");
         this.raw.setHeader("x-no-compression", 1);
         this.raw.write(
-          serializeSSEEvent({ retry: options.retryDelay || 3000 })
+          serializeSSEEvent({ event: "start", data: JSON.stringify({ msg: "Stream started" }) })
         );
         handleAsyncIterable(this, this.sseContext.source);
       }
